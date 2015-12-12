@@ -1,0 +1,170 @@
+#include <fmx.h>
+#define CRIPTNSDLL_EXPORTS
+#include "CriptLib.h"
+#include <FMX.Memo.hpp>
+#include <System.Classes.hpp>
+#include <string.h>
+
+#pragma hdrstop
+#pragma argsused
+
+//---------------------------------------------------------------------------
+
+void Cript_BasicoM (String Original, String Chave, TMemo* Memo){
+
+	if (Original.Length() != Chave.Length()) {
+		throw Exception (L"Não é possível encriptar o conteúdo.\nO tamanho das palaras chave e original não podem ser diferentes.");
+	}
+
+	String Linha = NULL;
+
+	Memo->BeginUpdate();
+
+	for (int i = 0; i < Original.Length(); i++) {
+		for (int k = 0; k < Memo->Lines->Count; k++) {
+			Linha = Memo->Lines->Strings[k];
+			for (int l = 0; l < Linha.Length(); l++) {
+				if (Linha.c_str()[l] == Original.c_str()[i]) Linha.c_str()[l] = Chave.c_str() [i];
+				else if (Linha.c_str()[l] == Chave.c_str()[i]) Linha.c_str()[l] = Original.c_str() [i];
+			}
+			Memo->Lines->Strings[k] = Linha;
+		}
+	}
+
+	Memo->Lines->Add(Original);
+	Memo->Lines->Add("CriptB");
+
+	Memo->EndUpdate();
+	Memo->Repaint();
+
+}
+
+//---------------------------------------------------------------------------
+
+void Cript_BasicoL (String Original, String Chave, TStringList* Lista){
+
+	if (Original.Length() != Chave.Length()) {
+		throw Exception (L"Não é possível encriptar o conteúdo.\nO tamanho das palaras chave e original não podem ser diferentes.");
+	}
+
+	String Linha = NULL;
+
+	Lista->BeginUpdate();
+
+	for (int i = 0; i < Original.Length(); i++) {
+		for (int k = 0; k < Lista->Count; k++) {
+			Linha = Lista->Strings[k];
+			for (int l = 0; l < Linha.Length(); l++) {
+				if (Linha.c_str()[l] == Original.c_str()[i]) Linha.c_str()[l] = Chave.c_str()[i];
+				else if (Linha.c_str()[l] == Chave.c_str()[i]) Linha.c_str()[l] = Original.c_str()[i];
+			}
+			Lista->Strings[k] = Linha;
+		}
+	}
+
+	Lista->Add(Original);
+	Lista->Add("CriptB");
+
+	Lista->EndUpdate();
+}
+
+//---------------------------------------------------------------------------
+
+void Cript_BasicoS (String Original, String Chave, String* Linha){
+
+	if (Original.Length() != Chave.Length()) {
+		throw Exception (L"Não é possível encriptar o conteúdo.\nO tamanho das palaras chave e original não podem ser diferentes.");
+	}
+
+	for (int i = 0; i < Original.Length(); i++) {
+		for (int l = 0; l < Linha->Length(); l++) {
+			if (Linha->c_str()[l] == Original.c_str()[i]) Linha->c_str()[l] = Chave.c_str()[i];
+			else if (Linha->c_str()[l] == Chave.c_str()[i]) Linha->c_str()[l] = Original.c_str()[i];
+		}
+	}
+
+	ShowMessage(L"Atenção!\nVocê precisará de duas chaves para decriptar, uma vez que traduziu apenas uma única linha.");
+
+}
+//---------------------------------------------------------------------------
+
+void Decript_BasicoS (String Original, String Chave, String* Linha){
+
+	if (Original.Length() != Chave.Length()) {
+		throw Exception (L"Não é possível decriptar o conteúdo.\nO tamanho das palaras chave e original não podem ser diferentes.");
+	}
+
+	for (int i = 0; i < Chave.Length(); i++) {
+		for (int l = 0; l < Linha->Length(); l++) {
+			if (Linha->c_str()[l] == Chave.c_str()[i]) Linha->c_str()[l] = Original.c_str()[i];
+			else if (Linha->c_str()[l] == Original.c_str()[i]) Linha->c_str()[l] = Chave.c_str()[i];
+		}
+	}
+
+}
+//---------------------------------------------------------------------------
+
+void Decript_BasicoL (String Chave, TStringList* Lista){
+
+	String Original = Lista->Strings[Lista->Count - 2];
+
+	if (Original.Length() != Chave.Length()) {
+		throw Exception (L"Não é possível decriptar o conteúdo.\nO tamanho das palaras chave e original não podem ser diferentes.");
+	}
+
+	String Linha = NULL;
+
+	Lista->BeginUpdate();
+
+	for (int i = 0; i < Chave.Length(); i++) {
+		for (int k = 0; k < Lista->Count; k++) {
+			Linha = Lista->Strings[k];
+			for (int l = 0; l < Linha.Length(); l++) {
+				if (Linha.c_str()[l] == Chave.c_str()[i]) Linha.c_str()[l] = Original.c_str()[i];
+				else if (Linha.c_str()[l] == Original.c_str()[i]) Linha.c_str()[l] = Chave.c_str()[i];
+			}
+			Lista->Strings[k] = Linha;
+		}
+	}
+
+	Lista->Delete(Lista->Count - 1);
+	Lista->Delete(Lista->Count - 1);
+
+	Lista->EndUpdate();
+
+}
+//---------------------------------------------------------------------------
+
+void Decript_BasicoM (String Chave, TMemo* Memo){
+
+	int loc = Memo->Lines->Count - 2;
+
+	String Original = Memo->Lines->Strings[loc];
+
+	if (Original.Length() != Chave.Length()) {
+		throw Exception (L"Não é possível decriptar o conteúdo.\nO tamanho das palaras chave e original não podem ser diferentes.");
+	}
+
+	String Linha = NULL;
+
+	Memo->BeginUpdate();
+
+	for (int i = 0; i < Chave.Length(); i++) {
+		for (int k = 0; k < Memo->Lines->Count; k++) {
+			Linha = Memo->Lines->Strings[k];
+			for (int l = 0; l < Linha.Length(); l++) {
+				if (Linha.c_str()[l] == Chave.c_str()[i]) Linha.c_str()[l] = Original.c_str()[i];
+				else if (Linha.c_str()[l] == Original.c_str()[i]) Linha.c_str()[l] = Chave.c_str()[i];
+			}
+			Memo->Lines->Strings[k] = Linha;
+		}
+	}
+
+	Memo->Lines->Delete(Memo->Lines->Count - 1);
+	Memo->Lines->Delete(Memo->Lines->Count - 1);
+
+	Memo->EndUpdate();
+
+}
+//---------------------------------------------------------------------------
+

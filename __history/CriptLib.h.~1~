@@ -24,7 +24,6 @@ extern "C" {
 	CRIPTLIB_API void Decript_BasicoM(String Chave, TMemo* Memo);
 	CRIPTLIB_API void Decript_BasicoL(String Chave, TStringList* Lista);
 	CRIPTLIB_API void Decript_BasicoS(String Original, String Chave, String* Linha);
-	CRIPTLIB_API String VerProg();
 
 #ifdef __cplusplus
 }
@@ -45,12 +44,6 @@ namespace CriptLib
 		static void Subst(String Chave, TMemo* Memo) { Decript_BasicoM(Chave, Memo); }
 		static void Subst(String Chave, TStringList* Lista) { Decript_BasicoL(Chave, Lista); }
 		static void Subst(String Original, String Chave, String* Linha) { Decript_BasicoS(Original, Chave, Linha); }
-	};
-
-	class Info
-	{
-	public:
-		static String Ver() { return VerProg(); }
 	};
 
 }

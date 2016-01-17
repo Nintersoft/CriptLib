@@ -125,9 +125,9 @@ void Cript_BasicoS (String Original, String Chave, String Linha){
 	}
 
 	for (int i = 0; i < Original.Length(); i++) {
-		for (int l = 0; l < Linha.Length(); l++) {
-			if (Linha.c_str()[l] == Original.c_str()[i]) Linha.c_str()[l] = Chave.c_str()[i];
-			else if (Linha.c_str()[l] == Chave.c_str()[i]) Linha.c_str()[l] = Original.c_str()[i];
+		for (int l = 0; l < Linha->Length(); l++) {
+			if (Linha->c_str()[l] == Original.c_str()[i]) Linha->c_str()[l] = Chave.c_str()[i];
+			else if (Linha->c_str()[l] == Chave.c_str()[i]) Linha->c_str()[l] = Original.c_str()[i];
 		}
 	}
 
@@ -159,9 +159,9 @@ void Decript_BasicoS (String Original, String Chave, String Linha){
 	}
 
 	for (int i = 0; i < Chave.Length(); i++) {
-		for (int l = 0; l < Linha.Length(); l++) {
-			if (Linha.c_str()[l] == Chave.c_str()[i]) Linha.c_str()[l] = Original.c_str()[i];
-			else if (Linha.c_str()[l] == Original.c_str()[i]) Linha.c_str()[l] = Chave.c_str()[i];
+		for (int l = 0; l < Linha->Length(); l++) {
+			if (Linha->c_str()[l] == Chave.c_str()[i]) Linha->c_str()[l] = Original.c_str()[i];
+			else if (Linha->c_str()[l] == Original.c_str()[i]) Linha->c_str()[l] = Chave.c_str()[i];
 		}
 	}
 
